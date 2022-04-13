@@ -20,7 +20,6 @@ public class SendData extends HttpServlet {
             throws ServletException, IOException {
         String responseJsonString = "";
         try {
-            final long timeStamp = System.currentTimeMillis();
 
             Stream<String> body = request.getReader().lines();
 
@@ -28,15 +27,13 @@ public class SendData extends HttpServlet {
                     .map(line->line.toString()).collect(Collectors.joining());
 
 
-            System.out.println("send data "+responseJsonString);
-            
             response.setStatus(HttpServletResponse.SC_OK);
 
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
         } finally {
-            response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("application/json");
             response.getWriter().println(responseJsonString);
             response.getWriter().close();
         }

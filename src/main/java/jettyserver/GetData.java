@@ -27,14 +27,11 @@ public class GetData extends HttpServlet {
 
         try {
 
-            final JsonObject retVal = new JsonObject();
             Stream<String> body = request.getReader().lines();
 
             responseJsonString = body
                     .map(line->line.toString()).collect(Collectors.joining());
 
-
-            System.out.println("get data"+responseJsonString);
 
             response.setStatus(HttpServletResponse.SC_OK);
 
@@ -42,7 +39,7 @@ public class GetData extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
         } finally {
-            response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("application/json");
             response.getWriter().println("Response:"+ responseJsonString);
             response.getWriter().close();
         }
